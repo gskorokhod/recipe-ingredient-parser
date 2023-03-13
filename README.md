@@ -31,7 +31,8 @@ Will be parsed as:
   'peeled': 'I-COMMENT',
   'and': 'I-COMMENT',
   'coarsely': 'I-COMMENT',
-  'grated': 'I-COMMENT'}
+  'grated': 'I-COMMENT'
+}
 ```
 
 ## Provenance
