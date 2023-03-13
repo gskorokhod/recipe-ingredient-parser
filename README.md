@@ -36,11 +36,13 @@ Will be parsed as:
 
 ## Provenance
 Inspired by the original work of Erica Greene and Adam McCaig: [link](https://github.com/nytimes/ingredient-phrase-tagger)
-(released under the Apache 2.0 license)
-The original approach of using CRF to parse recipes is described [here](https://archive.nytimes.com/open.blogs.nytimes.com/2016/04/27/structured-ingredients-data-tagging/)
+(released under the Apache 2.0 license).
+The original approach of using CRF to parse recipes is described [here](https://archive.nytimes.com/open.blogs.nytimes.com/2016/04/27/structured-ingredients-data-tagging/).
+
 All code in this repository, unless stated otherwise, is my own original work.
+
 The dataset is based on the original NYT dataset from the above repository, but modified to include a broader range of measurement units
-(such as common metric system units)
+(such as common metric system units).
 
 ## Authorship
 Written by Georgii Skorokhod
