@@ -48,7 +48,6 @@ The dataset is based on the original NYT dataset from the above repository, but 
 
 ## Authorship
 Written by Georgii Skorokhod.
-
 Trained using University of St Andrews hardware.
 
 Contact me: skorokhod.g@gmail.com
