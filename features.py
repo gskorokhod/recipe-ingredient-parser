@@ -1,4 +1,7 @@
 from utils import is_unit, is_number, untag, doc_to_tags, get_length_bracket, is_ingredient
+from get_tagged_dataset import get_ingredient_set
+
+ingredients = get_ingredient_set()
 
 
 def get_features(doc, i):
@@ -19,7 +22,7 @@ def get_features(doc, i):
         'is_in_parenthesis=%s' % is_in_parenthesis,
         'is_capitalized=%s' % word[0].isupper(),
         'is_unit=%s' % is_unit(word),
-        'is_ingredient=%s' % is_ingredient(word),
+        'is_ingredient=%s' % is_ingredient(word, ingredients),
         'is_number=%s' % is_number(word),
         'index=%s' % i,  # People don't seem to use this, may remove in the future
         'length_bracket=%s' % get_length_bracket(word),
@@ -35,7 +38,7 @@ def get_features(doc, i):
             'prev_word.lower=%s' % prev_word.lower(),
             'prev_is_in_parenthesis=%s' % prev_is_in_parenthesis,
             'prev_word.is_unit=%s' % is_unit(prev_word),
-            'prev_word.is_ingredient=%s' % is_ingredient(prev_word),
+            'prev_word.is_ingredient=%s' % is_ingredient(prev_word, ingredients),
             'prev_word.is_number=%s' % is_number(prev_word),
             'prev_word.pos=%s' % prev_pos,
         ])
@@ -51,7 +54,7 @@ def get_features(doc, i):
             'next_word.lower=%s' % next_word.lower(),
             'prev_is_in_parenthesis=%s' % next_is_in_parenthesis,
             'next_word.is_unit=%s' % is_unit(next_word),
-            'next_word.is_ingredient=%s' % is_ingredient(next_word),
+            'next_word.is_ingredient=%s' % is_ingredient(next_word, ingredients),
             'next_word.is_number=%s' % is_number(next_word),
             'next_word.pos=%s' % next_pos,
         ])
@@ -82,4 +85,3 @@ def prepare_data(tagged_docs):
         y.append(tags[:])
 
     return x, y
-

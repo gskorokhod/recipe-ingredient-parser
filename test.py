@@ -1,14 +1,12 @@
 import os
 from itertools import chain
-
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelBinarizer
-import constants
 from constants import MODEL_DIR
 from features import doc_to_features, prepare_data
 import pycrfsuite
 from get_tagged_dataset import get_ds
-from utils import split_dataset, get_tag_vocabulary, doc_to_words, doc_to_tags
+from utils import split_dataset, doc_to_words, doc_to_tags
 from collections import Counter
 
 dataset = get_ds()

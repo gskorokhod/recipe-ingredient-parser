@@ -1,12 +1,51 @@
 import nltk
+from nltk import PorterStemmer
 from unidecode import unidecode
-from get_tagged_dataset import get_ingredient_set
 from constants import *
-from IngredientSimilarity import normalize
+
+ps = PorterStemmer()
 
 
-normalized_units = [normalize(x) for x in UNITS]
-ingredient_set = get_ingredient_set()
+def split_by_condition(st, cond):
+    ans = []
+    current_word = ''
+    for ch in st:
+        if cond(ch):
+            ans.append(current_word)
+            current_word = ''
+        else:
+            current_word += ch
+    if current_word:
+        ans.append(current_word)
+    return ans
+
+
+def split_by_symbols_and_nonascii(ch):
+    if ch.isascii():
+        if ch not in SYMBOLS_TO_SPLIT:
+            return False
+    return True
+
+
+def split_by_symbols(ch):
+    return ch in SYMBOLS_TO_SPLIT
+
+
+def normalize_and_split(st, stem=True, split_condition=split_by_symbols_and_nonascii):
+    st = st.strip().lower()
+    split_st = split_by_condition(st, split_condition)
+    ans = []
+    for word in split_st:
+        if word and (word not in WORDS_TO_REMOVE):
+            if stem:
+                ans.append(ps.stem(word))
+            else:
+                ans.append(word)
+    return ans
+
+
+def normalize(st, stem=True, split_condition=split_by_symbols_and_nonascii):
+    return ' '.join(normalize_and_split(st, stem=stem, split_condition=split_condition))
 
 
 def is_number(s):
@@ -14,13 +53,14 @@ def is_number(s):
 
 
 def is_unit(s):
+    normalized_units = [normalize(x) for x in UNITS]
     norm = normalize(s)
     return norm in normalized_units
 
 
-def is_ingredient(s):
+def is_ingredient(s, ing_set):
     norm = normalize(s)
-    return norm in ingredient_set
+    return norm in ing_set
 
 
 def get_length_bracket(s):

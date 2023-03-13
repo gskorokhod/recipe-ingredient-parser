@@ -1,7 +1,5 @@
 import os
-
-import IngredientSimilarity
-from IngredientSimilarity import normalize
+from utils import normalize
 from constants import DATASET_FILE, DATA_DIR
 import nltk
 
@@ -46,8 +44,8 @@ def get_ingredient_set():
 
 
 def get_ingredient_set_from_ds(ds):
-    ingredient_list = [normalize(x.sentence) for x in IngredientSimilarity.similarity.get_ingredients()]
-    ingredient_set = set(ingredient_list)
+    #ingredient_list = [normalize(x.sentence) for x in IngredientSimilarity.similarity.get_ingredients()]
+    ingredient_set = set()
 
     new_ings = []
     for doc in ds:
