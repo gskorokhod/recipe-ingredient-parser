@@ -20,6 +20,7 @@ Also, a clean up / restructuring of the code is planned
 ## Example
 The following phrase:
 "200 grams of potatoes, peeled and coarsely grated"
+
 Will be parsed as:
 ```
 {
