@@ -119,28 +119,21 @@ def split_sentence(st):
     for token in words:
         new_tokens = []
         next_token = ''
-        prev_ch = None
+        prev_ch = '\0'
         for i in range(len(token)):
             ch = token[i]
 
-            if prev_ch is not None:
-                if prev_ch in NUMBER_SYMBOLS:
-                    if ch in NUMBER_SYMBOLS:
-                        next_token += ch
-                    else:
-                        new_tokens.append(next_token)
-                        next_token = ''
-                else:
-                    if ch in PUNCTUATION:
-                        if next_token:
-                            new_tokens.append(next_token)
-                        new_tokens.append(ch)
-                        next_token = ''
-                    else:
-                        next_token += ch
-            else:
-                next_token += ch
+            if next_token in PUNCTUATION:
+                ans.append(next_token)
+                next_token = ''
 
+            if (prev_ch in NUMBER_SYMBOLS and ch not in NUMBER_SYMBOLS) \
+                    or (ch in PUNCTUATION and prev_ch not in NUMBER_SYMBOLS):
+                if next_token:
+                    ans.append(next_token)
+                next_token = ''
+
+            next_token += ch
             prev_ch = ch
 
         if next_token:
@@ -148,7 +141,7 @@ def split_sentence(st):
         if new_tokens:
             ans.extend(new_tokens)
 
-    return ans
+    return [x for x in ans if x]
 
 
 def tokenize(tokens):
@@ -168,7 +161,8 @@ def tokenize(tokens):
             if is_number(ans[-1]) and is_number(tk):
                 tk = ans.pop(-1) + "$" + tk
 
-        ans.append(tk)
+        if tk:
+            ans.append(tk)
 
     return ans
 
