@@ -13,14 +13,23 @@ class Parser:
         self.tagger = tagger
 
     def parse(self, sent):
-        ans = {}
+        ans = {
+            "QTY": [],
+            "NAME": [],
+            "UNIT": [],
+            "COMMENT": [],
+            "OTHER": []
+        }
 
         prepared_sent = sent_to_features(sent)
+        print(prepared_sent)
         features = doc_to_features(prepared_sent)
         tagged = self.tagger.tag(features)
 
         for pr, tag in zip(prepared_sent, tagged):
-            ans[pr[0]] = tag
+            for key in ans.keys():
+                if key in tag:
+                    ans[key].append(pr[0])
 
         return ans
 

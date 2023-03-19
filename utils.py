@@ -124,17 +124,23 @@ def split_sentence(st):
             ch = token[i]
 
             if prev_ch is not None:
-                if prev_ch in NUMBER_SYMBOLS and ch not in NUMBER_SYMBOLS:
-                    new_tokens.append(next_token)
-                    next_token = ''
-
-            if ch in PUNCTUATION:
-                if next_token:
-                    new_tokens.append(next_token)
-                new_tokens.append(ch)
-                next_token = ''
+                if prev_ch in NUMBER_SYMBOLS:
+                    if ch in NUMBER_SYMBOLS:
+                        next_token += ch
+                    else:
+                        new_tokens.append(next_token)
+                        next_token = ''
+                else:
+                    if ch in PUNCTUATION:
+                        if next_token:
+                            new_tokens.append(next_token)
+                        new_tokens.append(ch)
+                        next_token = ''
+                    else:
+                        next_token += ch
             else:
                 next_token += ch
+
             prev_ch = ch
 
         if next_token:
@@ -145,7 +151,7 @@ def split_sentence(st):
     return ans
 
 
-def cleanup(tokens):
+def tokenize(tokens):
     ans = []
 
     for tk in tokens:
@@ -157,6 +163,10 @@ def cleanup(tokens):
 
         if tk in SHORTENINGS:
             tk = SHORTENINGS[tk]
+
+        if ans:
+            if is_number(ans[-1]) and is_number(tk):
+                tk = ans.pop(-1) + "$" + tk
 
         ans.append(tk)
 
@@ -181,4 +191,4 @@ def prepare_features(tokens):
 
 
 def sent_to_features(sent):
-    return prepare_features(cleanup(split_sentence(sent)))
+    return prepare_features(tokenize(split_sentence(sent)))
