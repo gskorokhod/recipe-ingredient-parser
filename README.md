@@ -47,8 +47,9 @@ The dataset is based on the original NYT dataset from the above repository, but 
 (such as common metric system units).
 
 ## Authorship
-Written by Georgii Skorokhod
-Trained using University of St Andrews hardware
+Written by Georgii Skorokhod.
+Trained using University of St Andrews hardware.
+
 Contact me: skorokhod.g@gmail.com
 
 ## References
