@@ -4,6 +4,7 @@
 The dataset could not be shared here because the file is too large.
 Please download it from the following link and put the files in /data
 https://nextcloud.gskorokhod.com/s/ex7RZTd8GwG56Gd
+UPD: the nextcloud server had to be taken down becaus I'm moving - I'll uplod the ds somewhere else soon
 
 ## Description
 This is a CRF (Conditional Random Fields) model, built with [pycrfsuite](https://python-crfsuite.readthedocs.io/en/latest/),
